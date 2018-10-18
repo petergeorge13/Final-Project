@@ -1,0 +1,24 @@
+---
+title: "Final Project"
+author: "Peter George"
+date: "October 18, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(knitr)
+library(dplyr)
+library(readxl)
+```
+
+```{r}
+##x <- unzip("Shot2018-302.zip")
+```
+
+```{r}
+# I plan on using the PGA Tour Shotlink Data in order to test how well strokes gained anticipates how well a player will do in a tournament. Even though this is what I am thinking right now, after looking at the data I might find that I am better served looking at something else in the data set and then I will observe that. Also, there is so much data that when I try to read it into R Studio, my computer basically crashes... so that is something I'll have to deal with going forward.
+
+##xx <- read_excel("Part of 2018 Data.xlsx")
+```
