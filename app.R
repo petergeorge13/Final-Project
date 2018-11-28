@@ -24,8 +24,10 @@ ui <- fluidPage(
    sidebarLayout(
       sidebarPanel(
          selectInput("round",
-                     "Round #",
-                     x$round
+                     "Round Number",
+                     choices = x$round,
+                     multiple = TRUE,
+                     selected = "1"
       ),
       selectInput("player",
                   "Player Last Name",
