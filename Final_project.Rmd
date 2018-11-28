@@ -23,16 +23,11 @@ x <- read_excel("ThePlayers.xlsx") %>%
 x %>%
   select(player_first_name, player_last_name, round, hole, strokes_gained_baseline, player_number) %>%
   group_by(player_last_name, round) %>%
-  filter(player_number %in% c(29221,26331,25632,48081,28089,25686,33141,37189,30911,29926,36689,33448,34563,10585,24138,8793,27349,29461,21961,26499,23108,30925,22405,23320,29479,6527,21528,47128,35450,26596,30978,39954,26476,33948,23621,34213,27095,31646,29420,47959,27556,29535,34360,27064,34046,29908,32333,29974,46435,35461,25396,27963,40098,30944,33204,30926,40026,29725,27936,25804,33399,35506,46970,37455,26851,28132,35421,33410,23353,21209,27896)) %>%
-  mutate(total_strokes_gained = sum(strokes_gained_baseline)) %>%
-  ggplot(aes(x=total_strokes_gained, y=player_last_name, color = round)) +
-  geom_point() +
-  xlab("Total Strokes Gained") +
-  ylab("Player Last Name") +
-  ggtitle("Strokes Gained Per Round of Players who Made the Cut at the Players Championship")
+  filter(player_number %in% c(29221,26331,25632,48081,28089,25686,33141,37189,30911,29926,36689,33448,34563,24502,24138,8793,27349,29461,21961,26499)) %>%
+  mutate(total_strokes_gained = sum(strokes_gained_baseline)) 
   
 
-write_rds(x, "Final_Project_rds", compress = "none")
+write_rds(x, "finalproject.rds")
 ```
 
  ## I eventually want the shiny app to run with the bins being the rounds and have the strokes gained per round be bars. In order to do that I have to make the graphs larger or I have to maybe narrow down the playrs to just the top 30 in the tournament or maybe even 20.
