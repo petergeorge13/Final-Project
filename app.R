@@ -49,14 +49,14 @@ server <- function(input, output) {
    output$distPlot <- renderPlot({
      
      x %>%
-       #filter( player_last_name == input$player_last_name) %>%
        filter( round == input$round) %>%
+       filter( player_last_name == input$player) %>%
        select(player_first_name, player_last_name, round, hole, strokes_gained_baseline, player_number) %>%
        group_by(player_last_name, round) %>%
-       filter(player_number %in% c(29221,26331,25632,48081,28089,25686,33141,37189,30911,29926,36689,33448,34563,24502,24138,8793,27349,29461,21961,26499)) %>%
+       #filter(player_number %in% c(29221,26331,25632,48081,28089,25686,33141,37189,30911,29926,36689,33448,34563,24502,24138,8793,27349,29461,21961,26499)) %>%
        mutate(total_strokes_gained = sum(strokes_gained_baseline)) %>%
-       ggplot(aes(x=total_strokes_gained, y=player_last_name, color = )) +
-       geom_point() +
+       ggplot(aes(x=total_strokes_gained, y=player_last_name, color = player_last_name)) +
+       geom_point(size = 3) +
        xlab("Total Strokes Gained") +
        ylab("Player Last Name") +
        ggtitle("Strokes Gained Per Round of the Top 20 at the Players Championship")
