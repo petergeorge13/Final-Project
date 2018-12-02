@@ -15,19 +15,27 @@ library(janitor)
 ```
 
 ```{r, message=FALSE, cache=TRUE}
-##unzip("Shot2018-302.zip")
+unzip("Shot2018-302.zip")
+
+## Unzipping the file that has the data in it
 
 x <- read_excel("ThePlayers.xlsx") %>%
   clean_names()
+
+## Reading in the data that I got out of the zip file as an excel sheet
 
 x <- x %>%
   select(player_first_name, player_last_name, round, hole, strokes_gained_baseline, player_number) %>%
   group_by(player_last_name, round) %>%
   #filter(player_number %in% c(29221,26331,25632,48081,28089,25686,33141,37189,30911,29926,36689,33448,34563,24502,24138,8793,27349,29461,21961,26499)) %>%
   mutate(total_strokes_gained = sum(strokes_gained_baseline)) 
+
+## I'm selecting the columns that I want to use and grouping by last name and round. I'm trying to find strokes gained data and all of the columns I have selected will help me pick out that data. I want to know the total strokes gained by round so I'm creating a new column using mutate and adding up all of the strokes_gained_baseline per round per player
   
 
 write_rds(x, "finalproject.rds")
+
+## I'm writing this new data set into and RDS file so that I can read it into the shiny app and have it in there
 ```
 
  ## I eventually want the shiny app to run with the bins being the rounds and have the strokes gained per round be bars. In order to do that I have to make the graphs larger or I have to maybe narrow down the playrs to just the top 30 in the tournament or maybe even 20.
