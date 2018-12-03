@@ -13,6 +13,8 @@ library(readxl)
 library(tidyverse)
 
 x <- read_rds("finalproject.rds")
+y <- read_rds("finalproject2.0.rds")
+z <- read_rds("finalproject3.0.rds")
 
 ## Reading in my libraries and the RDS with all of the data that I want to use in it
 
@@ -26,22 +28,48 @@ ui <- fluidPage(
    sidebarLayout(
       sidebarPanel(
          selectInput("round",
-                     "Round Number",
+                     "Round Number - Players",
                      choices = x$round,
                      multiple = TRUE,
                      selected = "1"
       ),
       selectInput("player_last_name",
-                  "Player Last Name",
+                  "Player Last Name - Players",
                   choices = x$player_last_name,
                   multiple = TRUE,
-                  selected = "Woods")),
+                  selected = "Mickelson"
+      ),
    
+      selectInput("round",
+                  "Round Number - Memorial",
+                  choices = y$round,
+                  multiple = TRUE,
+                  selected = "1"
+      ),
+      selectInput("player_last_name",
+                  "Player Last Name - Memorial",
+                  choices = y$player_last_name,
+                  multiple = TRUE,
+                  selected = "Mickelson"),
+      
+      selectInput("round",
+                  "Round Number - WGC-Mexico",
+                  choices = z$round,
+                  multiple = TRUE,
+                  selected = "1"
+      ),
+      selectInput("player_last_name",
+                  "Player Last Name - WGC-Mexico",
+                  choices = z$player_last_name,
+                  multiple = TRUE,
+                  selected = "Mickelson")),
       
       # Show a plot of the generated distribution
       mainPanel(
         tabsetPanel(type = "tabs",
-                    tabPanel("Players", plotOutput("plot"))
+                    tabPanel("Players", plotOutput("plot")),
+                    tabPanel("Memorial", plotOutput("plott")),
+                    tabPanel("WGC-Mexico", plotOutput("plottt"))
       )
    )
 ))
@@ -56,15 +84,41 @@ server <- function(input, output) {
        filter( player_last_name == input$player_last_name) %>%
        select( player_last_name, round,  total_strokes_gained) %>%
        group_by(player_last_name, round) %>%
-       #filter(player_number %in% c(29221,26331,25632,48081,28089,25686,33141,37189,30911,29926,36689,33448,34563,24502,24138,8793,27349,29461,21961,26499)) %>%
-       #mutate(total_strokes_gained = sum(strokes_gained_baseline)) %>%
        ggplot(aes(x=total_strokes_gained, y=player_last_name, color = round)) +
        geom_point(size = 3) +
-       xlab("Total Strokes Gained") +
+       xlab("Total Strokes Gained Per Round") +
        ylab("Player Last Name") +
        ggtitle("Strokes Gained Per Round at the Players Championship")
    
       })
+   
+   output$plott <- renderPlot({
+     
+     y %>%
+       filter( round == input$round) %>%
+       filter( player_last_name == input$player_last_name) %>%
+       select( player_last_name, round,  total_strokes_gained) %>%
+       group_by(player_last_name, round) %>%
+       ggplot(aes(x=total_strokes_gained, y=player_last_name, color = round)) +
+       geom_point(size = 3) +
+       xlab("Total Strokes Gained Per Round") +
+       ylab("Player Last Name") +
+       ggtitle("Strokes Gained Per Round at the Memorial Tournament")
+   })
+   
+   output$plottt <- renderPlot({
+     
+     z %>%
+       filter( round == input$round) %>%
+       filter( player_last_name == input$player_last_name) %>%
+       select( player_last_name, round,  total_strokes_gained) %>%
+       group_by(player_last_name, round) %>%
+       ggplot(aes(x=total_strokes_gained, y=player_last_name, color = round)) +
+       geom_point(size = 3) +
+       xlab("Total Strokes Gained Per Round") +
+       ylab("Player Last Name") +
+       ggtitle("Strokes Gained Per Round at the WGC-Mexico Tournament")
+   })
 }
 
 # Run the application 

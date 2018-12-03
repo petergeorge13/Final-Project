@@ -27,7 +27,6 @@ x <- read_excel("ThePlayers.xlsx") %>%
 x <- x %>%
   select(player_first_name, player_last_name, round, hole, strokes_gained_baseline, player_number) %>%
   group_by(player_last_name, round) %>%
-  #filter(player_number %in% c(29221,26331,25632,48081,28089,25686,33141,37189,30911,29926,36689,33448,34563,24502,24138,8793,27349,29461,21961,26499)) %>%
   mutate(total_strokes_gained = sum(strokes_gained_baseline)) 
 
 ## I'm selecting the columns that I want to use and grouping by last name and round. I'm trying to find strokes gained data and all of the columns I have selected will help me pick out that data. I want to know the total strokes gained by round so I'm creating a new column using mutate and adding up all of the strokes_gained_baseline per round per player
@@ -44,4 +43,38 @@ write_rds(x, "finalproject.rds")
 # I plan on using the PGA Tour Shotlink Data in order to test how well strokes gained anticipates how well a player will do in a tournament. Even though this is what I am thinking right now, after looking at the data I might find that I am better served looking at something else in the data set and then I will observe that. Also, there is so much data that when I try to read it into R Studio, my computer basically crashes... so that is something I'll have to deal with going forward.
 
 ##xx <- read_excel("Part of 2018 Data.xlsx")
+```
+
+```{r, message = FALSE, cache = TRUE}
+y <- read_excel("TheMemorial.xlsx") %>%
+  clean_names()
+
+## Reading in the data that I got out of the zip file as an excel sheet
+
+y <- y %>%
+  select(player_first_name, player_last_name, round, hole, strokes_gained_baseline, player_number) %>%
+  group_by(player_last_name, round) %>%
+  mutate(total_strokes_gained = sum(strokes_gained_baseline)) 
+
+## I'm selecting the columns that I want to use and grouping by last name and round. I'm trying to find strokes gained data and all of the columns I have selected will help me pick out that data. I want to know the total strokes gained by round so I'm creating a new column using mutate and adding up all of the strokes_gained_baseline per round per player
+  
+
+write_rds(y, "finalproject2.0.rds")
+```
+
+```{r, message = FALSE, cache = TRUE}
+z <- read_excel("TheWGCMexico.xlsx") %>%
+  clean_names()
+
+## Reading in the data that I got out of the zip file as an excel sheet
+
+z <- z %>%
+  select(player_first_name, player_last_name, round, hole, strokes_gained_baseline, player_number) %>%
+  group_by(player_last_name, round) %>%
+  mutate(total_strokes_gained = sum(strokes_gained_baseline)) 
+
+## I'm selecting the columns that I want to use and grouping by last name and round. I'm trying to find strokes gained data and all of the columns I have selected will help me pick out that data. I want to know the total strokes gained by round so I'm creating a new column using mutate and adding up all of the strokes_gained_baseline per round per player
+  
+
+write_rds(z, "finalproject3.0.rds")
 ```
