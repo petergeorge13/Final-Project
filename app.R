@@ -14,6 +14,8 @@ library(tidyverse)
 
 x <- read_rds("finalproject.rds")
 
+## Reading in my libraries and the RDS with all of the data that I want to use in it
+
 # Define UI for application that draws a histogram
 ui <- fluidPage(
    
@@ -38,15 +40,16 @@ ui <- fluidPage(
       
       # Show a plot of the generated distribution
       mainPanel(
-         plotOutput("distPlot")
+        tabsetPanel(type = "tabs",
+                    tabPanel("Players", plotOutput("plot"))
       )
    )
-)
+))
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
    
-   output$distPlot <- renderPlot({
+   output$plot <- renderPlot({
      
      x %>%
        filter( round == input$round) %>%
