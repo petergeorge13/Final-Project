@@ -89,8 +89,7 @@ ui <- fluidPage(
                                              per round, which is just the total strokes gained per shot in the round all added up. The other three panels represent three tournaments played on the PGA Tour in the 2018 season: The Players Championship, The Memorial Tournament, 
                                              and The World Golf Championship - Mexico. For each graph there are two input selectors, round and player last name. These can be adjusted to compare multiple golfers and multiple rounds within the same tournament. 
                                              By comparing strokes gained across rounds we can predict how well one player did in comparison to another, hypothesizing the order they placed in the tournament. If strokes gained is an accurate measure, the comparison of any number of players should be correct.
-                                             
-                                             This data came from the PGA Tour Shotlink Intelligence System, which is unfortunately private data. However, more basic data about the PGA Tour can be found at the PGA Tour site here: https://www.pgatour.com/stats.html " )),
+                                             This data came from the PGA Tour Shotlink Intelligence System." )),
                   tabPanel("Players", plotOutput("plot")),
                   tabPanel("Memorial", plotOutput("plot2")),
                   tabPanel("WGC-Mexico", plotOutput("plot3"))

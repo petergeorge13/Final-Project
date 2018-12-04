@@ -1,5 +1,3 @@
-# Final-Project
-
 Topic
 
 Data statistics has become a rapidly expanding field for many sports, one of those being golf. A major point of interest for those analyzing golf statistics has become a metric called strokes gained. This metric attempts to show how well a specific player does against a set of other players on a given shot. If the numeric value for strokes gained is positive, that indicated the player did better than the rest of the field on that shot and the other way around if the numeric value is negative. These shot-by-shot numeric values can be summed over an entire round to show total strokes gained. Once again if that number is positive the player did better than the rest of the field and the opposite is true if the number is negative. There is debate as to how accurate the criteria for strokes gained is per shot, but it is the best system so far developed for analyzing a golf round shot by shot.
