@@ -15,66 +15,59 @@ library(janitor)
 ```
 
 ```{r, message=FALSE, cache=TRUE}
+## Unzipping the file that has the data in it in order to transform that data into the strokes gained data that I want to use
+
 unzip("Shot2018-302.zip")
 
-## Unzipping the file that has the data in it
+## Reading in the data from The Players Championship that I selected out of the zip file as an excel sheet in order to modify it. I'm also cleaning the names of the column so that they will not be problematic to use down the road
 
 x <- read_excel("ThePlayers.xlsx") %>%
   clean_names()
 
-## Reading in the data that I got out of the zip file as an excel sheet
+## I'm selecting the columns that I want to use and grouping by last name and round. I'm trying to find strokes gained data and all of the columns I have selected will help me pick out that data. I want to know the total strokes gained by round so I'm creating a new column using mutate and adding up all of the strokes_gained_baseline per round per player
 
 x <- x %>%
   select(player_first_name, player_last_name, round, hole, strokes_gained_baseline, player_number) %>%
   group_by(player_last_name, round) %>%
   mutate(total_strokes_gained = sum(strokes_gained_baseline)) 
-
-## I'm selecting the columns that I want to use and grouping by last name and round. I'm trying to find strokes gained data and all of the columns I have selected will help me pick out that data. I want to know the total strokes gained by round so I'm creating a new column using mutate and adding up all of the strokes_gained_baseline per round per player
   
+## I'm writing this new data set into an RDS file so that I can read it into the shiny app. If I don't do this my shiny app will have incomplete data to work with and will therefore not work properly. I'm organizing my data into three chunks, so I will have three RDS files which I will all read into the shiny app.
 
 write_rds(x, "finalproject.rds")
-
-## I'm writing this new data set into and RDS file so that I can read it into the shiny app and have it in there
-```
-
- ## I eventually want the shiny app to run with the bins being the rounds and have the strokes gained per round be bars. In order to do that I have to make the graphs larger or I have to maybe narrow down the playrs to just the top 30 in the tournament or maybe even 20.
-
-```{r}
-# I plan on using the PGA Tour Shotlink Data in order to test how well strokes gained anticipates how well a player will do in a tournament. Even though this is what I am thinking right now, after looking at the data I might find that I am better served looking at something else in the data set and then I will observe that. Also, there is so much data that when I try to read it into R Studio, my computer basically crashes... so that is something I'll have to deal with going forward.
-
-##xx <- read_excel("Part of 2018 Data.xlsx")
 ```
 
 ```{r, message = FALSE, cache = TRUE}
+## Reading in the data from The Memorial Tournament that I selected out of the zip file as an excel sheet in order to modify it. I'm also cleaning the names of the column so that they will not be problematic to use down the road
+
 y <- read_excel("TheMemorial.xlsx") %>%
   clean_names()
 
-## Reading in the data that I got out of the zip file as an excel sheet
+## I'm selecting the columns that I want to use and grouping by last name and round. I'm trying to find strokes gained data and all of the columns I have selected will help me pick out that data. I want to know the total strokes gained by round so I'm creating a new column using mutate and adding up all of the strokes_gained_baseline per round per player
 
 y <- y %>%
   select(player_first_name, player_last_name, round, hole, strokes_gained_baseline, player_number) %>%
   group_by(player_last_name, round) %>%
   mutate(total_strokes_gained = sum(strokes_gained_baseline)) 
 
-## I'm selecting the columns that I want to use and grouping by last name and round. I'm trying to find strokes gained data and all of the columns I have selected will help me pick out that data. I want to know the total strokes gained by round so I'm creating a new column using mutate and adding up all of the strokes_gained_baseline per round per player
-  
+## I'm writing this new data set into an RDS file so that I can read it into the shiny app. If I don't do this my shiny app will have incomplete data to work with and will therefore not work properly. I'm organizing my data into three chunks, so I will have three RDS files which I will all read into the shiny app.
 
 write_rds(y, "finalproject2.0.rds")
 ```
 
 ```{r, message = FALSE, cache = TRUE}
+## Reading in the data from The WGC-MExico Tournament that I selected out of the zip file as an excel sheet in order to modify it. I'm also cleaning the names of the column so that they will not be problematic to use down the road
+
 z <- read_excel("TheWGCMexico.xlsx") %>%
   clean_names()
 
-## Reading in the data that I got out of the zip file as an excel sheet
+## I'm selecting the columns that I want to use and grouping by last name and round. I'm trying to find strokes gained data and all of the columns I have selected will help me pick out that data. I want to know the total strokes gained by round so I'm creating a new column using mutate and adding up all of the strokes_gained_baseline per round per player
 
 z <- z %>%
   select(player_first_name, player_last_name, round, hole, strokes_gained_baseline, player_number) %>%
   group_by(player_last_name, round) %>%
   mutate(total_strokes_gained = sum(strokes_gained_baseline)) 
-
-## I'm selecting the columns that I want to use and grouping by last name and round. I'm trying to find strokes gained data and all of the columns I have selected will help me pick out that data. I want to know the total strokes gained by round so I'm creating a new column using mutate and adding up all of the strokes_gained_baseline per round per player
   
-
+## I'm writing this new data set into an RDS file so that I can read it into the shiny app. If I don't do this my shiny app will have incomplete data to work with and will therefore not work properly. I'm organizing my data into three chunks, so I will have three RDS files which I will all read into the shiny app.
+ 
 write_rds(z, "finalproject3.0.rds")
 ```
