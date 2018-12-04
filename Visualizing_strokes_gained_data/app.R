@@ -79,7 +79,8 @@ ui <- fluidPage(
       h6("Select the player(s) for which strokes gained by round data will be shown for WGC- Mexico")),
     
     ## I created a main panel with four different tabs, the first being an explination of what is going on in the app and than the next three being interactive graphs for three different tournaments that can be adjusted by using the sidebars corresponsing to that tournament.
-    ##
+    ## My explanation details how strokes gained are used and how the app can be used to compare players by roudn and by tournament.
+    ## The three graphs are showing the same data points but across different tournaments. I wanted to show the method that I used is replicable across tournaments with this data and that players strokes gained can vary across tournaments. FOr example, Mickelson had overall poor strokes gained in the Players and Memorial tournaments so the field was generally better than him, where in the WGC-Mexico he had positive strokes gained in each round and eventually won the tournament.
     
     mainPanel(
       tabsetPanel(type = "tabs",
@@ -97,54 +98,148 @@ ui <- fluidPage(
                   )
       ))
 
-# Define server logic required to draw a histogram
+## Define server logic needed to produce the interactive graphs I want to show up in the app. Without this my graphs would not be interactive and the main point of the app would be lost.
 server <- function(input, output) {
+  
+  ## I'm reading in the plot designated for the tab labeled "Players" so that the plot will show up in that tab
   
   output$plot <- renderPlot({
     
+    ## Calling the data out of the first RDS file to be shown on the graph so that the inputs to the graph will be reactive
+    
     x %>%
+      
+      ## I'm making sure that the round(s) displayed on the graph is whatever round(s) the input is selected for. This enables the correct round(s) to be shown on the graph for whatever the user is trying to study.
+      
       filter( round == input$round) %>%
+      
+      ## I'm doing the same thing with player_last_name, to make sure only the players that the user wants to see will be shown on the graph.
+      
       filter( player_last_name == input$player_last_name) %>%
+      
+      ## I'm narrowing down the data to only the columns that I want to work with. I wasn't sure exactly how much of the data from the RDS I wanted to use before making the app and this was my way of narrowing that down.
+      
       select( player_last_name, round,  total_strokes_gained) %>%
+      
+      ## I'm making sure that the two variables I'm manipulating in the sidepanel a spread enough in order to function properly
+      
       group_by(player_last_name, round) %>%
+      
+      ## I'm creating my plot to visualize the data that I have selected and filtered. At first I had the player_last_name on the y-axis and the total_strokes_gained on the x-axis but then by friend Ollie Cordeiro told me it would be better if I switched them because total_strokes_gained is really the variable the user wants to look at. I agreed with him and decided to color by round because it's easy to distingush between the four shade of blue.
+      
       ggplot(aes(x=player_last_name, y=total_strokes_gained, color = round)) +
+      
+      ## I decided points would be the best way to visualize the intersection between player and total strokes gained and made those points size three in order to make sure that they are visible but not dominting the graph if  many players are compared at once.
+      
       geom_point(size = 3) +
+      
+      ## I labeled the y-axis an appropriate name for what was displayed by it
+      
       ylab("Total Strokes Gained Per Round") +
+      
+      ## I labeled the x-axis an approapriate name for what was displayed by it
+      
       xlab("Player Last Name") +
-      ggtitle("Strokes Gained Per Round at the Players Championship")
+      
+      ## I labeled the title more specfically than the title panel header because this is the graph specifically for The Players Champioinship
+      
+      ggtitle("Strokes Gained by Player Per Round at the Players Championship")
     
   })
+  
+  ## I'm reading in the plot designated for the tab labeled "Memorial" so that the plot will show up in that tab
   
   output$plot2 <- renderPlot({
     
+    ## Calling the data out of the second RDS file to be shown on the graph so that the inputs to the graph will be reactive
+    
     y %>%
+      
+      ## I'm making sure that the round(s) displayed on the graph is whatever round(s) the input is selected for. This enables the correct round(s) to be shown on the graph for whatever the user is trying to study.
+      
       filter( round == input$round2) %>%
+      
+      ## I'm doing the same thing with player_last_name, to make sure only the players that the user wants to see will be shown on the graph.
+      
       filter( player_last_name == input$player_last_name2) %>%
+      
+      ## I'm narrowing down the data to only the columns that I want to work with. I wasn't sure exactly how much of the data from the RDS I wanted to use before making the app and this was my way of narrowing that down.
+      
       select( player_last_name, round,  total_strokes_gained) %>%
+      
+      ## I'm making sure that the two variables I'm manipulating in the sidepanel a spread enough in order to function properly
+      
       group_by(player_last_name, round) %>%
+      
+      ## I'm creating my plot to visualize the data that I have selected and filtered. At first I had the player_last_name on the y-axis and the total_strokes_gained on the x-axis but then by friend Ollie Cordeiro told me it would be better if I switched them because total_strokes_gained is really the variable the user wants to look at. I agreed with him and decided to color by round because it's easy to distingush between the four shade of blue.
+      
       ggplot(aes(x=player_last_name, y=total_strokes_gained, color = round)) +
+      
+      ## I decided points would be the best way to visualize the intersection between player and total strokes gained and made those points size three in order to make sure that they are visible but not dominting the graph if  many players are compared at once.
+      
       geom_point(size = 3) +
+      
+      ## I labeled the y-axis an appropriate name for what was displayed by it
+      
       ylab("Total Strokes Gained Per Round") +
+      
+      ## I labeled the x-axis an approapriate name for what was displayed by it
+      
       xlab("Player Last Name") +
-      ggtitle("Strokes Gained Per Round at the Memorial Tournament")
+      
+      ## I labeled the title more specfically than the title panel header because this is the graph specifically for The Memorial Tournament
+      
+      ggtitle("Strokes Gained by Player Per Round at the Memorial Tournament")
   })
+  
+  ## I'm reading in the plot designated for the tab labeled "WGC-Mexico" so that the plot will show up in that tab
   
   output$plot3 <- renderPlot({
     
+    ## Calling the data out of the third RDS file to be shown on the graph so that the inputs to the graph will be reactive
+    
     z %>%
+      
+      ## I'm making sure that the round(s) displayed on the graph is whatever round(s) the input is selected for. This enables the correct round(s) to be shown on the graph for whatever the user is trying to study.
+      
       filter( round == input$round3) %>%
+      
+      ## I'm doing the same thing with player_last_name, to make sure only the players that the user wants to see will be shown on the graph.
+      
       filter( player_last_name == input$player_last_name3) %>%
+      
+      ## I'm narrowing down the data to only the columns that I want to work with. I wasn't sure exactly how much of the data from the RDS I wanted to use before making the app and this was my way of narrowing that down.
+      
       select( player_last_name, round,  total_strokes_gained) %>%
+      
+      ## I'm making sure that the two variables I'm manipulating in the sidepanel a spread enough in order to function properly
+      
       group_by(player_last_name, round) %>%
+      
+      ## I'm creating my plot to visualize the data that I have selected and filtered. At first I had the player_last_name on the y-axis and the total_strokes_gained on the x-axis but then by friend Ollie Cordeiro told me it would be better if I switched them because total_strokes_gained is really the variable the user wants to look at. I agreed with him and decided to color by round because it's easy to distingush between the four shade of blue.
+      
       ggplot(aes(x=player_last_name, y=total_strokes_gained, color = round)) +
+      
+      ## I decided points would be the best way to visualize the intersection between player and total strokes gained and made those points size three in order to make sure that they are visible but not dominting the graph if  many players are compared at once.
+      
       geom_point(size = 3) +
+      
+      ## I labeled the y-axis an appropriate name for what was displayed by it
+      
       ylab("Total Strokes Gained Per Round") +
+      
+      ## I labeled the x-axis an approapriate name for what was displayed by it
+      
       xlab("Player Last Name") +
-      ggtitle("Strokes Gained Per Round at the WGC-Mexico Tournament")
+      
+      ## I labeled the title more specfically than the title panel header because this is the graph specifically for The WGC-Mexico Tournament
+      
+      ggtitle("Strokes Gained by Player Per Round at the WGC-Mexico Tournament")
   })
 }
 
-# Run the application 
+## Running the app so that it functions in an html space
+
 shinyApp(ui = ui, server = server)
 
 
