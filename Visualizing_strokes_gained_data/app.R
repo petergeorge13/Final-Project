@@ -102,7 +102,8 @@ ui <- fluidPage(
                                              By comparing strokes gained across rounds we can predict how well one player did in comparison to another, hypothesizing the order they placed in the tournament. If strokes gained is an accurate measure, the comparison of any number of players should be correct.
                                              " ), 
                                           h4("A place to start looking at the data would be to compare the winner of each tournament to other players and see how much higher the winner's strokes gained are. Conveniently, the default player for each tournament is the winner 
-                                             of the that tournament, so all you have to do is start selecting other players and rounds to see how they compare. "),
+                                             of the that tournament, so all you have to do is start selecting other players and rounds to see how they compare. Notice that all of the winners have positive strokes gained in every round except for Simpson's final round. Also,
+                                             Simpson and DeChambeau's strokes gained drop off in the final round, while Mickelson's keep going strong throughout the tournament. "),
                                           h6("This data came from the PGA Tour Shotlink Intelligence System.")),
                   
                   ## The three graphs are showing the same data points but across different tournaments. I wanted to show the method that I used is replicable across tournaments with this data and that players strokes gained can vary across tournaments. FOr example, Mickelson had overall poor strokes gained in the Players and Memorial tournaments so the field was generally better than him, 
