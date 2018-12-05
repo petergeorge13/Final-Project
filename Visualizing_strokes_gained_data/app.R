@@ -27,7 +27,7 @@ ui <- fluidPage(
       
       ## I'm creating multiple inputs for both rounds and players because I want the user to be able to select over what rounds and which players they want the total strokes gained data to show up for.
       ## This will allow the user to compare multiple players over multiple rounds to see who performed better or worse by round
-      ## I left the defaults as round one and Mickelson because tournaments start with the first round and most people recognize the name Phil Mickelson more than most other professional golfers, other than Tiger Woods. Unforunately Tiger did not play in the WGC-Mexico tournament and I wanted all of the defaults to be the same.
+      ## I left the defaults as round one and the winner of each tournament. At first I had put Mickelson as the default because he is recognizable by most people but then my friend Grant Fairbairn told me it would be better to try to show something interesting in the data right off the bat, so that's what I'm trying to do.
       
       selectInput("round",
                   "Round Number - Players",
@@ -41,14 +41,14 @@ ui <- fluidPage(
                   "Player Last Name - Players",
                   choices = x$player_last_name,
                   multiple = TRUE,
-                  selected = "Mickelson"
+                  selected = "Simpson"
       ),
       
       h6("Select the player(s) for which strokes gained by round data will be shown for The Players Championship"),
       
       ## I'm creating multiple inputs for both rounds and players because I want the user to be able to select over what rounds and which players they want the total strokes gained data to show up for.
       ## This will allow the user to compare multiple players over multiple rounds to see who performed better or worse by round
-      ## I left the defaults as round one and Mickelson because tournaments start with the first round and most people recognize the name Phil Mickelson more than most other professional golfers, other than Tiger Woods. Unforunately Tiger did not play in the WGC-Mexico tournament and I wanted all of the defaults to be the same.
+      ## I left the defaults as round one and the winner of each tournament. At first I had put Mickelson as the default because he is recognizable by most people but then my friend Grant Fairbairn told me it would be better to try to show something interesting in the data right off the bat, so that's what I'm trying to do.
       
       selectInput("round2",
                   "Round Number - Memorial",
@@ -63,13 +63,13 @@ ui <- fluidPage(
                   "Player Last Name - Memorial",
                   choices = y$player_last_name,
                   multiple = TRUE,
-                  selected = "Mickelson"),
+                  selected = "DeChambeau"),
       
       h6("Select the player(s) for which strokes gained by round data will be shown for The Memorial Tournament"),
       
       ## I'm creating multiple inputs for both rounds and players because I want the user to be able to select over what rounds and which players they want the total strokes gained data to show up for.
       ## This will allow the user to compare multiple players over multiple rounds to see who performed better or worse by round
-      ## I left the defaults as round one and Mickelson because tournaments start with the first round and most people recognize the name Phil Mickelson more than most other professional golfers, other than Tiger Woods. Unforunately Tiger did not play in the WGC-Mexico tournament and I wanted all of the defaults to be the same.
+      ## I left the defaults as round one and the winner of each tournament. At first I had put Mickelson as the default because he is recognizable by most people but then my friend Grant Fairbairn told me it would be better to try to show something interesting in the data right off the bat, so that's what I'm trying to do.
       
       selectInput("round3",
                   "Round Number - WGC-Mexico",
@@ -100,7 +100,10 @@ ui <- fluidPage(
                                              per round, which is just the total strokes gained per shot in the round all added up. The other three panels represent three tournaments played on the PGA Tour in the 2018 season: The Players Championship, The Memorial Tournament, 
                                              and The World Golf Championship - Mexico. For each graph there are two input selectors, round and player last name. These can be adjusted to compare multiple golfers and multiple rounds within the same tournament. 
                                              By comparing strokes gained across rounds we can predict how well one player did in comparison to another, hypothesizing the order they placed in the tournament. If strokes gained is an accurate measure, the comparison of any number of players should be correct.
-                                             This data came from the PGA Tour Shotlink Intelligence System." )),
+                                             " ), 
+                                          h4("A place to start looking at the data would be to compare the winner of each tournament to other players and see how much higher the winner's strokes gained are. Conveniently, the default player for each tournament is the winner 
+                                             of the that tournament, so all you have to do is start selecting other players and rounds to see how they compare. "),
+                                          h6("This data came from the PGA Tour Shotlink Intelligence System.")),
                   
                   ## The three graphs are showing the same data points but across different tournaments. I wanted to show the method that I used is replicable across tournaments with this data and that players strokes gained can vary across tournaments. FOr example, Mickelson had overall poor strokes gained in the Players and Memorial tournaments so the field was generally better than him, 
                   ## where in the WGC-Mexico he had positive strokes gained in each round and eventually won the tournament.
