@@ -17,5 +17,6 @@ This repository was created by Peter George as a Gov 1005 final project
 Things to change after presentation:
 1. Make the y-axis constant so that the starkness of changes can be seen, maybe ranging from -10 to 10
 2. Try to make the sidebar panel conditional. Might take a lot of work but the app would definitely look better if I had that.
+3. Make the rounds into a solid colors instead of a gradient. This means changing that variable from a number into a character
                                                           
 
