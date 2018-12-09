@@ -17,12 +17,15 @@ library(janitor)
 ```{r, message=FALSE, cache=TRUE}
 ## Unzipping the file that has the data in it in order to transform that data into the strokes gained data that I want to use
 
-unzip("Shot2018-302.zip")
+#unzip("Shot2018-302.zip")
 
 ## Reading in the data from The Players Championship that I selected out of the zip file as an excel sheet in order to modify it. I'm also cleaning the names of the column so that they will not be problematic to use down the road
 
 x <- read_excel("ThePlayers.xlsx") %>%
   clean_names()
+## I'm changing the values in the round column to character values so that on the graph in the app they will shot up as different colors, not on a gradient
+
+x$round <- as.character(x$round)
 
 ## I'm selecting the columns that I want to use and grouping by last name and round. I'm trying to find strokes gained data and all of the columns I have selected will help me pick out that data. I want to know the total strokes gained by round so I'm creating a new column using mutate and adding up all of the strokes_gained_baseline per round per player
 
@@ -42,6 +45,10 @@ write_rds(x, "finalproject.rds")
 y <- read_excel("TheMemorial.xlsx") %>%
   clean_names()
 
+## I'm changing the values in the round column to character values so that on the graph in the app they will shot up as different colors, not on a gradient
+
+y$round <- as.character(y$round)
+
 ## I'm selecting the columns that I want to use and grouping by last name and round. I'm trying to find strokes gained data and all of the columns I have selected will help me pick out that data. I want to know the total strokes gained by round so I'm creating a new column using mutate and adding up all of the strokes_gained_baseline per round per player
 
 y <- y %>%
@@ -59,6 +66,10 @@ write_rds(y, "finalproject2.0.rds")
 
 z <- read_excel("TheWGCMexico.xlsx") %>%
   clean_names()
+
+## I'm changing the values in the round column to character values so that on the graph in the app they will shot up as different colors, not on a gradient
+
+z$round <- as.character(z$round)
 
 ## I'm selecting the columns that I want to use and grouping by last name and round. I'm trying to find strokes gained data and all of the columns I have selected will help me pick out that data. I want to know the total strokes gained by round so I'm creating a new column using mutate and adding up all of the strokes_gained_baseline per round per player
 
