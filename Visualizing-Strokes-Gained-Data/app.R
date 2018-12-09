@@ -159,6 +159,10 @@ server <- function(input, output) {
       
       xlab("Player Last Name") +
       
+      ## Creating a constant y axis so that user will be able to see change more clearly without axis changing
+      
+      ylim(-10, 10) +
+      
       ## I labeled the title more specfically than the title panel header because this is the graph specifically for The Players Champioinship
       
       ggtitle("Strokes Gained by Player Per Round at the Players Championship")
@@ -205,6 +209,10 @@ server <- function(input, output) {
       
       xlab("Player Last Name") +
       
+      ## Creating a constant y axis so that user will be able to see change more clearly without axis changing
+      
+      ylim(-10, 10) +
+      
       ## I labeled the title more specfically than the title panel header because this is the graph specifically for The Memorial Tournament
       
       ggtitle("Strokes Gained by Player Per Round at the Memorial Tournament")
@@ -249,6 +257,10 @@ server <- function(input, output) {
       ## I labeled the x-axis an approapriate name for what was displayed by it
       
       xlab("Player Last Name") +
+      
+      ## Creating a constant y axis so that user will be able to see change more clearly without axis changing
+      
+      ylim(-10, 10) +
       
       ## I labeled the title more specfically than the title panel header because this is the graph specifically for The WGC-Mexico Tournament
       
