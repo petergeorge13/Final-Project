@@ -17,7 +17,7 @@ library(janitor)
 ```{r, message=FALSE, cache=TRUE}
 ## Unzipping the file that has the data in it in order to transform that data into the strokes gained data that I want to use
 
-#unzip("Shot2018-302.zip")
+unzip("Shot2018-302.zip")
 
 ## Reading in the data from The Players Championship that I selected out of the zip file as an excel sheet in order to modify it. I'm also cleaning the names of the column so that they will not be problematic to use down the road
 
